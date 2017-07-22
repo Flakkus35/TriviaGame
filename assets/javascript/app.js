@@ -1,27 +1,3 @@
-// Display only start button in #answers div
-// On start write Time Remaining + a counter in #time div
-	// Write first question in #question div
-		// Write 4 answers
-			// On correct answer ++ correct var
-				// Write Correct! in #answers div
-				// Write Correct Answer was: rightAnswer in #answers div
-				// Display image of question in #answers div
-			// On wrong answer ++ incorrect var
-				// Write Wrong Answer! in #answers div
-				// Write Correct Answer was: rightAnswer in #answers div
-				// Display image of question in #answers div
-			// On time up ++ not answered var
-				// Write Time's Up! in #question div
-				// Write Correct Answer was: right Answer in #answers div
-				// Display image of question in #answers div
-			// Wait 5 seconds then display second question
-	// Repeat for total questions
-// On last question guessed
-	// Clear #time div
-	// Write finished line in #question div
-	// Write rightAnswer, correctAnswer and unanswered vars in #answers div
-	// Display Start Over button which resets the game
-
 // Counter-type variables
 var correctAnswer = 0;
 var incorrectAnswer = 0;
@@ -73,11 +49,65 @@ function displayQuestion() {
 		$('#answers').append('<button class="button2" id="thirdbutton">' + answerArray[answerCounter + 2] + '</button><br>');
 		$('#answers').append('<button class="button2" id="fourthbutton">' + answerArray[answerCounter + 3] + '</button><br>');
 		answerCounter+=4;
-	}
-	// End screen on last question answered
-	else {
-		return endScreen();
-	}
+		// On first button click
+		$('#firstbutton').on('click', function() {
+			if (questionCounter === 3 || questionCounter === 7) {
+				correct = true;
+				correctAnswer++;
+			}
+			else {
+				correct = false;
+				incorrectAnswer++;
+			}		
+			return answerScreen();
+		});
+
+		// On second button click
+		$('#secondbutton').on('click', function() {
+			if (questionCounter === 1 || questionCounter === 4 || questionCounter === 8) {
+				correct = true;
+				correctAnswer++;
+			}
+
+			else {
+				correct = false;
+				incorrectAnswer++;
+			}		
+			return answerScreen();
+		});
+
+		// On third button click
+		$('#thirdbutton').on('click', function() {
+			if (questionCounter === 0 || questionCounter === 6) {
+				correct = true;
+				correctAnswer++;
+			}
+
+			else {
+				correct = false;
+				incorrectAnswer++;
+			}		
+			return answerScreen();
+		});
+
+		// On fourth button click
+		$('#fourthbutton').on('click', function() {
+			if (questionCounter === 2 || questionCounter === 5 || questionCounter === 9) {
+				correct = true;
+				correctAnswer++;
+			}
+
+			else {
+				correct = false;
+				incorrectAnswer++;
+			}		
+			return answerScreen();
+		});
+		}
+		// End screen on last question answered
+		else {
+			endScreen();
+		}
 }
 
 // Determine what happens on answer guess or time running out
@@ -91,61 +121,6 @@ function nextQuestion() {
 		unanswered++;
 		answerScreen();
 	}
-
-	// On first button click
-	$('#firstbutton').on('click', function() {
-		if (questionCounter === 3 || questionCounter === 7) {
-			correct = true;
-			correctAnswer++;
-		}
-		else {
-			correct = false;
-			incorrectAnswer++;
-		}		
-		answerScreen();
-	});
-
-	// On second button click
-	$('#secondbutton').on('click', function() {
-		if (questionCounter === 1 || questionCounter === 4 || questionCounter === 8) {
-			correct = true;
-			correctAnswer++;
-		}
-
-		else {
-			correct = false;
-			incorrectAnswer++;
-		}		
-		answerScreen();
-	});
-
-	// On third button click
-	$('#thirdbutton').on('click', function() {
-		if (questionCounter === 0 || questionCounter === 6) {
-			correct = true;
-			correctAnswer++;
-		}
-
-		else {
-			correct = false;
-			incorrectAnswer++;
-		}		
-		answerScreen();
-	});
-
-	// On fourth button click
-	$('#fourthbutton').on('click', function() {
-		if (questionCounter === 2 || questionCounter === 5 || questionCounter === 9) {
-			correct = true;
-			correctAnswer++;
-		}
-
-		else {
-			correct = false;
-			incorrectAnswer++;
-		}		
-		answerScreen();
-	});
 }
 
 // Screen after user input on question
@@ -155,24 +130,26 @@ function answerScreen() {
 	counter = 10;
 	// Empty out the buttons from answers div
 	$('#answers').empty();
-
+	// Asks if past the last question
 	if (questionCounter < 10) {
 		setTimeout(function() {displayQuestion()}, 5000);
 	}
 
+	// Ends the game if the last question has been guessed
 	else {
 		setTimeout(function() {endScreen()}, 5000);
 		return;
 	}
-
+	// Write if user runs out of time
 	if (noTime) {
 		$('#time').html('No More Time!');
 	}
 	else {
+		// Writes if user chooses correct answer
 		if (correct) {
 			$('#time').html('Correct!');
 		}
-
+		//Writes if user chooses the incorrect answer
 		else {
 			$('#time').html('Incorrect!');
 		}
@@ -225,7 +202,7 @@ function endScreen() {
 		init();
 	})
 }
-
+// Initialize game
 init();
 
 
