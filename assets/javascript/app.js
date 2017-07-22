@@ -10,15 +10,40 @@ var counter = 10;
 var noTime = false;
 var correct = true;
 
-// Question and answer variables
+// Timer variable
 var initQuestion;
-var questionArray = ["When was the band Metallica first formed?", "Which album was ACDC's best all-time seller?", "Who was the lead guitarist of these four Guns N' Roses band members?", "Who was Van Halen's first lead vocalist?", "Who is the American best-selling hard rock band of all time?", "Which KISS member is known for sticking his tongue out?", "Which band did MTV call the 'ambassadors of rock'?", "Which band created the song 'Come Sail Away'?", "Which band member came up with the name Deaf Leopard later being changed to Def Leppard?", "Which band was formed in the UK?"];
-var answerArray = ['1979', '1980', '1981', '1982', 'Highway to Hell', 'Back in Black', 'Powerage', 'For Those About to Rock We Salute You', 'Axl Rose', 'Duff McKagan', 'Izzy Stradlin', 'Slash', 'Eddie Van Halen', 'David Lee Roth', 'Sammy Hagar', 'Gary Cherone', "ACDC", "Aerosmith", "Kiss", "Def Leppard", "Paul Stanley", "Tommy Thayer", "Eric Singer", "Gene Simmons", "Guns N' Roses", "Aerosmith", "Scorpions", "Van Halen", "Styx", "Poison", "Bon Jovi", "Quiet Riot", "Rick Savage", "Joe Elliot", "Rick Allen", "Phil Collen", "ACDC", "Guns N' Roses", "Bon Jovi", "Judas Priest"];
-var correctArray = ['1981', 'Back in Black', 'Slash', 'Eddie Van Halen', 'Aerosmith', 'Gene Simmons', 'Scorpions', 'Styx', 'Joe Elliot', 'Judas Priest'];
+
+// Full question array
+var questionArray = ["When was the band Metallica first formed?", 
+"Which album was ACDC's best all-time seller?", 
+"Who was the lead guitarist of these four Guns N' Roses band members?", 
+"Who was Van Halen's first lead vocalist?", 
+"Who is the American best-selling hard rock band of all time?", 
+"Which KISS member is known for sticking his tongue out?", 
+"Which band did MTV call the 'ambassadors of rock'?", 
+"Which band created the song 'Come Sail Away'?", 
+"Which band member came up with the name Deaf Leopard later being changed to Def Leppard?", 
+"Which band was formed in the UK?"];
+
+// All answers array
+var answerArray = ['1979', '1980', '1981', '1982', 
+'Highway to Hell', 'Back in Black', 'Powerage', 'For Those About to Rock We Salute You', 
+'Axl Rose', 'Duff McKagan', 'Izzy Stradlin', 'Slash', 
+'Eddie Van Halen', 'David Lee Roth', 'Sammy Hagar', 'Gary Cherone', 
+"ACDC", "Aerosmith", "Kiss", "Def Leppard", 
+"Paul Stanley", "Tommy Thayer", "Eric Singer", "Gene Simmons", 
+"Guns N' Roses", "Aerosmith", "Scorpions", "Van Halen", 
+"Styx", "Poison", "Bon Jovi", "Quiet Riot", "Rick Savage", 
+"Joe Elliot", "Rick Allen", "Phil Collen", "ACDC", 
+"Guns N' Roses", "Bon Jovi", "Judas Priest"];
+
+// Correct answers array
+var correctArray = ['1981', 'Back in Black', 'Slash', 'Eddie Van Halen', 'Aerosmith', 
+'Gene Simmons', 'Scorpions', 'Styx', 'Joe Elliot', 'Judas Priest'];
 
 // Initial setup with "Start" button
 function init() {
-	// Set counters to 0 (reset)
+	// Reset counters to 0
 	correctAnswer = 0;
 	incorrectAnswer = 0;
 	unanswered = 0;
@@ -26,6 +51,7 @@ function init() {
 	answerCounter = 0;
 	// Empty questions div from end screen
 	$('#question').empty();
+	// Display start button
 	$('#answers').html('<button class="button" id="startbutton">Start</button>');
 	$('#startbutton').on('click', function() {
 		$('#startbutton').remove();
