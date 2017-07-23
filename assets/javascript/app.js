@@ -4,7 +4,7 @@ var incorrectAnswer = 0;
 var unanswered = 0;
 var questionCounter = 0;
 var answerCounter = 0;
-var counter = 10;
+var counter = 20;
 
 // Boolean variables
 var noTime = false;
@@ -43,7 +43,7 @@ var correctArray = ['1981', 'Back in Black', 'Slash', 'Eddie Van Halen', 'Aerosm
 
 // Initial setup with "Start" button
 function init() {
-	// Reset counters to 0
+	// Reset counters/results to 0
 	correctAnswer = 0;
 	incorrectAnswer = 0;
 	unanswered = 0;
@@ -67,13 +67,18 @@ function displayQuestion() {
 	if (questionCounter < 10) {
 		// Reset noTime to false at the start of every question
 		noTime = false
+		// Set up interval for timer
 		initQuestion = setInterval(nextQuestion, 1000);	
+		// Display incrementing questions
 		$('#question').html(questionArray[questionCounter]);
+		// Display decrementing timer
 		$('#time').html('Time Remaining: ' + counter);
+		// Write out buttons to corresponding answers
 		$('#answers').append('<button class="button2" id="firstbutton">' + answerArray[answerCounter] + '</button><br>');
 		$('#answers').append('<button class="button2" id="secondbutton">' + answerArray[answerCounter + 1] + '</button><br>');
 		$('#answers').append('<button class="button2" id="thirdbutton">' + answerArray[answerCounter + 2] + '</button><br>');
 		$('#answers').append('<button class="button2" id="fourthbutton">' + answerArray[answerCounter + 3] + '</button><br>');
+		// Add 4 to answer counter to set up the next question
 		answerCounter+=4;
 		// On first button click
 		$('#firstbutton').on('click', function() {
@@ -153,9 +158,7 @@ function nextQuestion() {
 function answerScreen() {
 	clearInterval(initQuestion);
 	// Reset counter back to default
-	counter = 10;
-	// Empty out the buttons from answers div
-	$('#answers').empty();
+	counter = 20;
 	// Asks if past the last question
 	if (questionCounter < 10) {
 		setTimeout(function() {displayQuestion()}, 5000);
@@ -164,6 +167,7 @@ function answerScreen() {
 	// Ends the game if the last question has been guessed
 	else {
 		setTimeout(function() {endScreen()}, 5000);
+		// If the last question has been guessed terminate this function
 		return;
 	}
 	// Write if user runs out of time
@@ -182,7 +186,7 @@ function answerScreen() {
 	}
 	// Write correct answer
 	$('#question').html('Correct answer was: ' + correctArray[questionCounter]);
-	// Display correct answer image
+	// Display correct answer image for each question
 	if (questionCounter == 0) {
 		$('#answers').html('<img src="assets/images/Metallica.jpg" height="250" width="300">');
 	}
@@ -221,9 +225,10 @@ function answerScreen() {
 function endScreen() {
 	clearInterval(initQuestion);
 	$('#time').empty();
-	$('#answers').empty();
 	$('#question').html('Your results');
+	// Write out results
 	$('#answers').html('<div>Correct: ' + correctAnswer + '</div><br>' + '<div>Incorrect: ' + incorrectAnswer + '</div><br>' + '<div>Unanswered: ' + unanswered + '</div><br>' + '<button class="button" id="startover">Start Over?</button>')
+	// Display start over button
 	$('#startover').on('click', function() {
 		init();
 	})
